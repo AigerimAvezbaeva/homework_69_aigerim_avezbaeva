@@ -1,10 +1,10 @@
 from django.urls import path
 
-from webapp.calculator import add, subtract, multiply, divide
+from webapp.calculator import calculator
 
 urlpatterns = [
-    path('add/', add, name='add'),
-    path('subtract/', subtract, name='subtract'),
-    path('multiply/', multiply, name='multiply'),
-    path('divide/', divide, name='divide'),
+    path('add/', calculator, name='add'),
+    path('subtract/', calculator, name='subtract'),
+    path('multiply/', calculator, name='multiply'),
+    path('divide/', calculator, name='divide'),
 ]
