@@ -5,6 +5,7 @@ def calculator(request):
     global answer
     if request.body:
         data = json.loads(request.body)
+        print(data)
         a = data['A']
         b = data['B']
         if b == 0:

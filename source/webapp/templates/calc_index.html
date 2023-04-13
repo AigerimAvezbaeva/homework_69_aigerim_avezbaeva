@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body{
+            background-color: gray;
+            }
+        input{
+            margin:10px;
+        }
+        .button{
+            padding: 6px 5px 5px;
+            text-decoration: none;
+            color: black;
+            margin-top: 10px;
+            }
+    </style>
+    <title>Calculator</title>
+</head>
+<body>
+<div class="container">
+    <h1>Калькулятор</h1>
+    <input type="text" id="A" placeholder="A">
+    <input type="text" id="B" placeholder="B">
+    <br>
+    <a href="" class="button" data-action="add">Сложение</a>
+    <a href="" class="button" data-action="subtract">Вычитание</a>
+    <a href="" class="button" data-action="multiply">Умножение</a>
+    <a href="" class="button" data-action="divide">Деление</a>
+    <br>
+    <br>
+    <div id="result"></div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('a').click(function(event) {
+                event.preventDefault();
+                var a = parseInt($('#A').val());
+                var b = parseInt($('#B').val());
+                var action = $(this).data('action');
+                var csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
+                $.ajax({
+                    url: '/' + action + '/',
+                    type: 'POST',
+                    headers: { 'X-CSRFToken': csrf_token },
+                    contentType: 'application/json',
+                    data: JSON.stringify({A: a, B: b}),
+                    success: function(data) {
+                        $('#result').html(data['answer']).css('color', 'green');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        $('#result').html(jqXHR.responseJSON['error']).css('color', 'red');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
