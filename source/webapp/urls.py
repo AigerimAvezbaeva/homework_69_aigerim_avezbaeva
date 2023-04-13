@@ -1,6 +1,6 @@
 from django.urls import path
 
-from webapp.views import add, subtract, multiply, divide
+from webapp.calculator import add, subtract, multiply, divide
 
 urlpatterns = [
     path('add/', add, name='add'),
